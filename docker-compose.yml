@@ -1,0 +1,16 @@
+services:
+  frontend:
+    build: 
+      context: ./mtcc-front
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+
+  backend:
+    build: 
+      context: ./mtcc-back
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"

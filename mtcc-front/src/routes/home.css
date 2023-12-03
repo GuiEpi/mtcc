@@ -1,0 +1,25 @@
+/* .gradient-wrapper {
+    position: relative;
+  }
+  .gradient-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, transparent 1%, #7b4b94 100%);
+    z-index: -1;
+    transition: transform 0.5s, opacity 0.5s;
+    transform: scale(0);
+    border-radius: 50%;
+  }
+  .gradient-wrapper:hover::before {
+    transform: scale(3);
+    opacity: 0;
+  }
+  .text-gradient {
+    position: relative;
+    z-index: 10;
+  }
+   */
