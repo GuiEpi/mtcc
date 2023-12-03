@@ -7,8 +7,6 @@ interface LoadingButtonProps {
 }
 
 const LoadingButton: React.FC<LoadingButtonProps> = ({ isLoading, text }) => {
-  console.log('isLoading', isLoading);
-  console.log('text', text);
   return (
     <Button className="w-full flex justify-center items-center" type="submit" disabled={isLoading}>
       {isLoading ? (
