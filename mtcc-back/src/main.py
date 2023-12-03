@@ -27,6 +27,7 @@ app.mount("/themes", StaticFiles(directory="themes"), name="themes")
 
 origins = [
     "https://mtcc.guics.st",
+    "http://localhost:8080",
 ]
 
 app.add_middleware(
@@ -146,7 +147,7 @@ async def get_torrent_content(
     onlyNfo: Annotated[bool, Form(...)] = None,
 ) -> Union[TorrentContentResponseModel, TorrentContentResponseWithoutPresModel]:
     try:
-        utils.validate_files(files)
+        await utils.validate_files(files)
         nfo = NfoBuilder(ripper=ripper, uploader=uploader)
         nfo.parse(files)
         nfo_download_link = utils.create_temporary_nfo(str(nfo))
