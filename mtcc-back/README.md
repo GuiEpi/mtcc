@@ -5,7 +5,7 @@
 mtcc backend is the core of the application include a nfo builder and a pres generator.
 
 ## Requirements
-mtcc backend recommends using Poetry for a better development experience.
+mtcc backend recommends using [Poetry](https://python-poetry.org/) for a better development experience.
 
 ### MediaInfo
 mtcc backend use [pymediainfo](https://pypi.org/project/pymediainfo/) is a simple wrapper around the MediaInfo library, which you can find at https://mediaarea.net/en/MediaInfo.
