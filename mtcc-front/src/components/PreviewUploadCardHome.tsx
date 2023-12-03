@@ -29,6 +29,7 @@ import toast from 'react-hot-toast';
 import { useTorrentContentResponseStore, TorrentContentResponse } from "@/services/useTorrentContentResponseStore";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useHomeFileStore } from "@/services/useFileStore";
+import LoadingButton from "./LoadingButton";
 
 const formSchema = z.object({
   ripper: z.string().max(50),
@@ -47,6 +48,7 @@ export const PreviewUploadCardHome = () => {
   const [tag] = useLocalStorage('tag', '');
   const [accountLink] = useLocalStorage('accountLink', '');
   const [bannerTheme] = useLocalStorage('bannerTheme', 'play_banners_purple');
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const { setTorrentContentResponse } = useTorrentContentResponseStore();
 
 	const { files, removeFile, addFiles, resetFiles } = useHomeFileStore((state) => ({
@@ -100,6 +102,7 @@ export const PreviewUploadCardHome = () => {
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+		setIsSubmitting(true);
     if (files) {
       for (const [key, value] of Object.entries(values)) {
         formData.append(key, value);
@@ -118,7 +121,10 @@ export const PreviewUploadCardHome = () => {
             setTorrentContentResponse(res);
             return 'Nfo and presentation successfully generated'
           },
-          error: (err) => `${err.toString()}`,
+          error: (err) => {
+						setIsSubmitting(false);
+						return `${err.toString()}`
+					},
         },
       );
     }
@@ -266,7 +272,7 @@ export const PreviewUploadCardHome = () => {
 											</FormItem>
 										)}
 									/>
-									<Button className="w-full" type="submit">Generate my torrent content</Button>
+									<LoadingButton isLoading={isSubmitting} text="Generate my torrent content" />
 								</form>
 							</Form>
 						</TabsContent>

@@ -25,6 +25,7 @@ import { NfoContentResponse, useNfoContentResponseStore } from "@/services/useTo
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useNfoFileStore } from "@/services/useFileStore";
 import { Badge } from "./ui/badge";
+import LoadingButton from "./LoadingButton";
 
 const formSchema = z.object({
   ripper: z.string().max(50),
@@ -37,6 +38,7 @@ export const PreviewUploadCardNfo = () => {
 	const formData = new FormData();
   const [ripper] = useLocalStorage('ripper', '');
   const [uploader] = useLocalStorage('uploader', '');
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const { setNfoContentResponse } = useNfoContentResponseStore();
 
 	const { files, removeFile, addFiles, resetFiles } = useNfoFileStore((state) => ({
@@ -87,6 +89,7 @@ export const PreviewUploadCardNfo = () => {
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+		setIsSubmitting(true);
     if (files) {
       for (const [key, value] of Object.entries(values)) {
         formData.append(key, value);
@@ -106,7 +109,10 @@ export const PreviewUploadCardNfo = () => {
             setNfoContentResponse(res);
             return 'Nfo successfully generated'
           },
-          error: (err) => `${err.toString()}`,
+          error: (err) => {
+						setIsSubmitting(false);
+						return `${err.toString()}`
+					},
         },
       );
     }
@@ -201,7 +207,7 @@ export const PreviewUploadCardNfo = () => {
 									</FormItem>
 								)}
 							/>
-							<Button className="w-full" type="submit">Generate my Nfo</Button>
+							<LoadingButton isLoading={isSubmitting} text="Generate my Nfo" />
 						</form>
 					</Form>
 				</div>

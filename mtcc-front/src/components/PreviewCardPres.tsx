@@ -20,6 +20,8 @@ import toast from "react-hot-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import BannerAccordion from "./BannerAccordion";
 import { PresContentResponse, usePresContentResponseStore } from "@/services/useTorrentContentResponseStore";
+import { useState } from "react";
+import LoadingButton from "./LoadingButton";
 
 const formSchema = z.object({
   id: z.number(),
@@ -41,6 +43,7 @@ export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
   const [accountLink] = useLocalStorage('accountLink', '');
   const [bannerTheme] = useLocalStorage('bannerTheme', 'play_banners_purple');
   const [tag] = useLocalStorage('tag', '');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const clearSelectedAlbum = useSelectedAlbumStore(state => state.clearSelectedAlbum);
   const { setPresContentResponse } = usePresContentResponseStore();
 
@@ -75,6 +78,7 @@ export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
     const data = {
       id: values.id,
       settings: {
@@ -97,7 +101,10 @@ export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
           setPresContentResponse(res);
           return 'Presentation successfully generated'
         },
-        error: (err) => `${err.toString()}`,
+        error: (err) => {
+          setIsSubmitting(false);
+          return `${err.toString()}`
+        },
       },
     );
   }
@@ -268,7 +275,7 @@ export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
                     </FormItem>
                   )}
                 />
-                <Button className="w-full" type="submit">Generate my presentation</Button>
+                <LoadingButton isLoading={isSubmitting} text="Generate my presentation" />
               </form>
             </Form>
             </TabsContent>
