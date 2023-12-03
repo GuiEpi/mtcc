@@ -30,8 +30,12 @@ poetry run uvicorn src.main:app --reload
 
 This project utilizes a number of powerful libraries and frameworks:
 
-- [FastAPI](https://fastapi.tiangolo.com/): A modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints. It's used as the backend framework for this project.
+- [Poetry](https://python-poetry.org/): A tool for dependency management and packaging in Python.
 
-- [pymediainfo](https://pypi.org/project/pymediainfo/): A Python wrapper for the MediaInfo library, which is used for extracting detailed information about media files. It's used in this project for music info extraction.
+- [deezer-python](https://github.com/browniebroke/deezer-python): A Python client for the Deezer API.
 
-- [Mako](https://www.makotemplates.org/): A super-fast templating language that borrows the best ideas from the existing templating languages. It's used in this project to render NFO files and presentations.
+- [FastAPI](https://fastapi.tiangolo.com/): A modern, fast (high-performance), web framework for building APIs with Python 3.8+ based on standard Python type hints.
+
+- [pymediainfo](https://pypi.org/project/pymediainfo/): A Python wrapper for the MediaInfo library, which is used for extracting detailed information about media files.
+
+- [Mako](https://www.makotemplates.org/): A super-fast templating language that borrows the best ideas from the existing templating languages.
