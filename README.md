@@ -15,4 +15,4 @@ Visit the [mtcc website](https://mtcc.guics.st) to get started.
 
 ## Contributing
 
-Contributions are welcome! Please read our [contributing guidelines](#) for details. (Replace '#' with the actual URL of your contributing guidelines)
+Contributions are welcome! Please read our [contributing guidelines](#) for details. (soon..)
