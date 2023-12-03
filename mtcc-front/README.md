@@ -18,6 +18,16 @@ pnpm i
 pnpm dev
 ```
 
+## Test build mtcc
+1. Build the application:
+```bash
+pnpm build
+```
+2. Serve the built application using Python's built-in HTTP server:
+```bash
+python3 -m http.server 8080 --directory dist
+```
+
 ## Built With
 
 This project utilizes a number of cutting-edge libraries and frameworks:
