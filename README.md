@@ -1,8 +1,8 @@
 ![](https://raw.githubusercontent.com/GuiEpi/mtcc/master/assets/mtcc_nfo_builder.png) ![](https://raw.githubusercontent.com/GuiEpi/mtcc/master/assets/mtcc_pres.png) 
-# mtcc: **m**usic **t**orrent **c**ontent **c**reator
+# mtcc: music torrent content creator
 #### The quick and easy way to create and share your music torrents!
 
-mtcc is a user-friendly tool designed to streamline the process of creating and sharing music torrents. It includes an NFO builder and a presentation generator in BBCode format, all accessible through a Streamlit web page.
+mtcc is a user-friendly tool designed to streamline the process of creating and sharing music torrents. It includes an NFO builder and a presentation generator in BBCode format.
 
 ## Features
 
