@@ -147,7 +147,7 @@ async def get_torrent_content(
     onlyNfo: Annotated[bool, Form(...)] = None,
 ) -> Union[TorrentContentResponseModel, TorrentContentResponseWithoutPresModel]:
     try:
-        await utils.validate_files(files)
+        utils.validate_files(files)
         nfo = NfoBuilder(ripper=ripper, uploader=uploader)
         nfo.parse(files)
         nfo_download_link = utils.create_temporary_nfo(str(nfo))

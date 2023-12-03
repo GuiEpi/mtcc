@@ -25,27 +25,25 @@ class FileSizeExceededError(Exception):
         super().__init__(self.message)
 
 
-async def validate_file_size(file: UploadFile, max_size: int) -> bool:
-    return file.file_size <= max_size
+def validate_file_size(file: UploadFile, max_size: int) -> bool:
+    return file.size <= max_size
 
 
-async def validate_mime_type(file: UploadFile) -> str:
-    contents = await file.read(2048)
-    mime_type = magic.from_buffer(contents, mime=True)
-    await file.seek(0)
+def validate_mime_type(file: UploadFile) -> str:
+    mime_type = magic.from_buffer(file.file.read(2048), mime=True)
     return mime_type
 
 
-async def validate_files(
+def validate_files(
     files: list[UploadFile],
 ) -> Union[None, InvalidMimeTypeError, FileSizeExceededError]:
     for file in files:
-        mime_type = await validate_mime_type(file)
+        mime_type = validate_mime_type(file)
         if mime_type not in config.ALLOWED_MIME_TYPES:
             raise InvalidMimeTypeError(file.filename)
 
         max_size = config.ALLOWED_MIME_TYPES[mime_type]
-        if not await validate_file_size(file, max_size):
+        if not validate_file_size(file, max_size):
             raise FileSizeExceededError(file.filename)
 
 
