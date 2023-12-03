@@ -2,9 +2,10 @@ README.md
 build
 dist
 node_modules
-LICENSE
 package-lock.json
 pnpm-lock.yaml
 .git
 .DS_Store
 .gitignore
+Dockerfile
+.dockerignore
