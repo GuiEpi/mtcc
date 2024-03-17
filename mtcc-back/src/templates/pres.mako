@@ -24,8 +24,10 @@ ${track.track_position} - ${track.title} (${datetime.fromtimestamp(track.duratio
 [img]${settings.banner_theme}/technical_details.png[/img]
 
 [b]Format :[/b] Digital Media
+% if settings.codec == 'MP3':
 [b]Codec audio :[/b] ${settings.codec}
-% if settings.codec != 'MP3':
+% else:
+[b]Codec audio :[/b] ${settings.codec} (${settings.bit_depth} bits)
 [b]Fréquence :[/b] ${settings.frequency}
 % endif
 [b]Débit Audio :[/b] ${settings.audio_bit_rate} kb/s
