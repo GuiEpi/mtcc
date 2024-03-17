@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { AlbumCard } from './AlbumCard';
 import { SelectedAlbumWithMeta } from '@/services/useSelectedAlbumStore';
-// import { SelectedAlbumWithMeta } from '@/services/useSelectedAlbumStore';
 
 const albumSchema = z.object({
   name: z.string().max(80),
@@ -59,9 +58,9 @@ export default function SearchAlbum() {
             </div>
           </form>
         </div>
-        <div className='grid grid-cols-4 gap-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4'>
           {albums.map(album => (
-            <AlbumCard key={album.id} album={album} /> // Affiche une carte pour chaque album
+            <AlbumCard key={album.id} album={album} />
           ))}
         </div>
       </div>
