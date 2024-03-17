@@ -39,3 +39,5 @@ This project utilizes a number of powerful libraries and frameworks:
 - [pymediainfo](https://pypi.org/project/pymediainfo/): A Python wrapper for the MediaInfo library, which is used for extracting detailed information about media files.
 
 - [Mako](https://www.makotemplates.org/): A super-fast templating language that borrows the best ideas from the existing templating languages.
+
+- [filetype](https://pypi.org/project/filetype/): A small package to infer file type and MIME type checking the magic numbers signature of a file or buffer.
