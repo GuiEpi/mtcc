@@ -1,4 +1,6 @@
 export const Footer = () => {
+    const currentYear = new Date().getFullYear();
+
     return (
         <footer className="flex items-center justify-center flex-col">
             <p>Made with 💜 by GuiEpi</p>
@@ -9,7 +11,7 @@ export const Footer = () => {
                     width={24}
                     height={24}
                 />
-                © 2023 <span className="font-bold">mtcc</span>
+                © {currentYear} <span className="font-bold">mtcc</span>
             </a>
         </footer>
     )
