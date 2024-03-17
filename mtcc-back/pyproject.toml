@@ -13,7 +13,7 @@ python-multipart = "^0.0.6"
 pymediainfo = "^6.0.1"
 deezer-python = "^6.1.0"
 mako = "^1.2.4"
-python-magic = "^0.4.27"
+filetype = "^1.2.0"
 
 [build-system]
 requires = ["poetry-core"]

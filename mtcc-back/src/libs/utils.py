@@ -1,6 +1,6 @@
 import math
 from typing import Optional, Union
-from fastapi import UploadFile, HTTPException
+from fastapi import File
 import os
 import deezer
 import src.config as config
@@ -8,7 +8,7 @@ from time import time
 from uuid import uuid4
 from tempfile import NamedTemporaryFile
 import re
-import magic
+import filetype
 
 client = deezer.Client()
 
@@ -25,18 +25,20 @@ class FileSizeExceededError(Exception):
         super().__init__(self.message)
 
 
-def validate_file_size(file: UploadFile, max_size: int) -> bool:
+def validate_file_size(file: File, max_size: int) -> bool:
     return file.size <= max_size
 
 
-def validate_mime_type(file: UploadFile) -> str:
-    mime_type = magic.from_buffer(file.file.read(2048), mime=True)
-    return mime_type
+def validate_mime_type(file: File) -> str:
+    kind = filetype.guess(file.file)
+    if kind is None:
+        raise InvalidMimeTypeError(file.filename)
+    return kind.mime
 
 
 def validate_files(
-    files: list[UploadFile],
-) -> Union[None, InvalidMimeTypeError, FileSizeExceededError]:
+    files: list[File],
+) -> None:
     for file in files:
         mime_type = validate_mime_type(file)
         if mime_type not in config.ALLOWED_MIME_TYPES:
@@ -95,7 +97,7 @@ def convert_size(size_bytes: int) -> str:
     return f"{s} {size_name[i]}"
 
 
-def get_upload_infos(files: list[UploadFile]) -> dict[int, str]:
+def get_upload_infos(files: list[File]) -> dict[int, str]:
     total_size = 0
     for file in files:
         total_size += file.size
