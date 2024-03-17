@@ -38,8 +38,6 @@ This project utilizes a number of cutting-edge libraries and frameworks:
 
 - [Zustand](https://zustand-demo.pmnd.rs/): A small, fast and scaleable bearbones state-management solution. Has a comfy api based on hooks, isn't boilerplatey or opinionated.
 
-- [React Hot Toast](https://react-hot-toast.com/): A library for adding customizable, beautiful toast notifications to a React application.
-
 - [nbbcjs](https://www.npmjs.com/package/nbbcjs): A library for rendering BBCode in HTML, allowing for rich text formatting in user-generated content.
 
 - [Lucide](https://lucide.dev/): A collection of well-designed, lightweight icons with a clean and consistent look.
