@@ -20,7 +20,7 @@ import {
   FormLabel,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import toast from 'react-hot-toast';
+import { toast } from "sonner";
 import { NfoContentResponse, useNfoContentResponseStore } from "@/services/useTorrentContentResponseStore";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useNfoFileStore } from "@/services/useFileStore";

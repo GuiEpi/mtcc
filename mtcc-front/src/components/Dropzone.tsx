@@ -2,7 +2,7 @@
 import React from 'react';
 import { FolderUp } from 'lucide-react';
 import { getFilesFromDrop } from '@/lib/utils';
-import toast from 'react-hot-toast';
+import { toast } from "sonner";
 import { useHomeFileStore, useNfoFileStore } from '@/services/useFileStore';
 
 type Props = {

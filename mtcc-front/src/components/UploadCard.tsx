@@ -10,7 +10,7 @@ import { useRef } from "react";
 import { PreviewUploadCardHome } from "./PreviewUploadCardHome";
 import { PreviewUploadCardNfo } from "./PreviewUploadCardNfo";
 import { useHomeFileStore, useNfoFileStore } from "@/services/useFileStore";
-import toast from "react-hot-toast";
+import { toast } from "sonner"
 
 type Props = {
   fromNfo?: boolean;

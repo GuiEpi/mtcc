@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Toaster } from 'react-hot-toast'
+import { Toaster } from '@/components/ui/sonner'
 import Layout from "./routes/Layout";
 import Home from "./routes/Home";
 import About from "./routes/About";
@@ -9,7 +9,7 @@ import Nfo from "./routes/Nfo";
 export default function App() {
   return (
     <div>
-      <Toaster />
+      <Toaster richColors position="top-center" />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />

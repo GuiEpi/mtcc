@@ -16,7 +16,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Separator } from "./ui/separator";
 import { Calendar, ChevronLeft, ListOrdered, Timer, User } from "lucide-react";
-import toast from "react-hot-toast";
+import { toast } from "sonner"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import BannerAccordion from "./BannerAccordion";
 import { PresContentResponse, usePresContentResponseStore } from "@/services/useTorrentContentResponseStore";

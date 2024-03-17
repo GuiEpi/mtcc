@@ -25,7 +25,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import BannerAccordion from "./BannerAccordion";
 import { Badge } from "./ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import toast from 'react-hot-toast';
+import { toast } from "sonner";
 import { useTorrentContentResponseStore, TorrentContentResponse } from "@/services/useTorrentContentResponseStore";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useHomeFileStore } from "@/services/useFileStore";
