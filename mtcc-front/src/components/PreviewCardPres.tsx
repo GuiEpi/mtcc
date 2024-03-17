@@ -15,22 +15,24 @@ import { Input } from "@/components/ui/input"
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Separator } from "./ui/separator";
-import { ChevronLeft } from "lucide-react";
+import { Calendar, ChevronLeft, ListOrdered, Timer, User } from "lucide-react";
 import toast from "react-hot-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import BannerAccordion from "./BannerAccordion";
 import { PresContentResponse, usePresContentResponseStore } from "@/services/useTorrentContentResponseStore";
 import { useState } from "react";
 import LoadingButton from "./LoadingButton";
+import { Badge } from "@/components/ui/badge"
 
 const formSchema = z.object({
   id: z.number(),
   codec: z.string().max(18),
   frequency: z.string().max(18),
   // https://github.com/colinhacks/zod#coercion-for-primitives
-  audioBitRate: z.coerce.number(),
+  audioBitRate: z.coerce.number().nonnegative(),
   nbFiles: z.coerce.number().max(100),
-  totalSize: z.coerce.number(),
+  totalSize: z.coerce.string(),
+  sizeUnit: z.string().max(2),
   bannerTheme: z.string().max(50),
   accountLink: z.string().max(100),
   tag: z.string().max(50),
@@ -39,7 +41,7 @@ const formSchema = z.object({
 export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
   id, title, performer, nbTracks, duration, cover, releaseDate
 }) => {
-
+  const keysToStore = ['ripper', 'uploader', 'tag', 'accountLink', 'bannerTheme'];
   const [accountLink] = useLocalStorage('accountLink', '');
   const [bannerTheme] = useLocalStorage('bannerTheme', 'play_banners_purple');
   const [tag] = useLocalStorage('tag', '');
@@ -54,9 +56,10 @@ export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
       id: id,
       codec: "MP3",
       frequency: "44.1 kHz",
-      audioBitRate: 0,
-      nbFiles: 0,
-      totalSize: 0,
+      audioBitRate: 320,
+      nbFiles: nbTracks + 1,
+      totalSize: "0",
+      sizeUnit: "MB",
       bannerTheme,
       accountLink,
       tag,
@@ -87,12 +90,19 @@ export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
         audioBitRate: values.audioBitRate,
         nbFiles: values.nbFiles,
         totalSize: values.totalSize,
+        sizeUnit: values.sizeUnit,
         bannerTheme: values.bannerTheme,
         accountLink: values.accountLink,
         tag: values.tag
       }
     };
 
+    for (const [key, value] of Object.entries(values)) {
+      if (keysToStore.includes(key)) {
+        localStorage.setItem(key, value.toString());
+      }
+    }
+    
     toast.promise(
       getPresContent(JSON.stringify(data)),
       {
@@ -115,25 +125,35 @@ export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
 
   return (
       <div className="flex space-x-6 w-11/12 lg:w-1/2 border border-[#8C52FF] rounded p-10">
-        <div className="flex flex-col w-1/2">
+        <div className="w-1/2 space-y-2">
           <Button size="icon" onClick={handleGoBack}><ChevronLeft className="h-[1.2rem] w-[1.2rem]" /></Button>
-          <div className="flex mt-4">
-            <div className="w-1/2">
-              <img src={cover} alt={`Cover of ${title}`} className="rounded-lg" />
-              <p>{nbTracks} tracks | {duration} | {releaseDate}</p>
+          <h1 className="text-2xl font-bold">{title}</h1>
+          <img src={cover} alt={`Cover of ${title}`} className="rounded-lg" />
+          <div className="space-y-4">
+            <div className="flex space-x-2">
+              <User />
+              <h2 className="">{performer}</h2>
             </div>
-            <div className="w-1/2">
-              <h1 className="text-2xl font-bold">{title}</h1>
-              <h2 className="text-2xl justify-end">{performer}</h2>
+            <div className="flex space-x-2">
+              <ListOrdered />
+              <span className="">{nbTracks} tracks</span>
+            </div>
+            <div className="flex space-x-2">
+              <Timer />
+              <span className="">{duration}</span>
+            </div>
+            <div className="flex space-x-2">
+              <Calendar />
+              <span className="">{releaseDate}</span>
             </div>
           </div>
         </div>
         <div className="flex flex-col justify-between w-1/2 space-y-6">
-        <Tabs defaultValue="form">
-						<TabsList className="grid w-full grid-cols-2">
-							<TabsTrigger value="form">Infos (optional)</TabsTrigger>
-							<TabsTrigger value="banner">Banners</TabsTrigger>
-						</TabsList>
+          <Tabs defaultValue="form">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="form">Infos (optional)</TabsTrigger>
+              <TabsTrigger value="banner">Banners</TabsTrigger>
+            </TabsList>
             <TabsContent value="form">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -192,9 +212,10 @@ export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
                   name="audioBitRate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Audio bit rate</FormLabel>
+                      <FormLabel>Audio bit rate </FormLabel>
+                      <Badge variant="outline">kb/s</Badge>
                       <FormControl>
-                        <Input type="number" placeholder="0" {...field} />
+                        <Input placeholder={field.value.toString()} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -213,19 +234,42 @@ export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="totalSize"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Total size</FormLabel>
-                      <FormControl>
-                        <Input type="number" placeholder="300" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="flex space-x-2">
+                  <FormField
+                    control={form.control}
+                    name="totalSize"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Total size</FormLabel>
+                        <FormControl>
+                          <Input type="string" placeholder="300" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="sizeUnit"
+                    render={({ field }) => (
+                      <FormItem >
+                        <FormLabel>Unit</FormLabel>
+                        <Select onValueChange={field.onChange}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder={field.value} />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="MB">MB</SelectItem>
+                            <SelectItem value="GO">GO</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
                 <FormField
                   control={form.control}
                   name="accountLink"
@@ -280,9 +324,9 @@ export const PreviewCardPres: React.FC<SelectedAlbumWithMeta> = ({
             </Form>
             </TabsContent>
             <TabsContent value="banner">
-							<BannerAccordion />
+              <BannerAccordion />
             </TabsContent>
-        </Tabs>
+          </Tabs>
         </div>
       </div>
   );

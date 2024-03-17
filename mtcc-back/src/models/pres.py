@@ -30,7 +30,8 @@ class UploadInfosModel(BaseModel):
     frequency: str
     audioBitRate: int
     nbFiles: int
-    totalSize: int
+    totalSize: str
+    sizeUnit: str
     bannerTheme: str
     accountLink: str
     tag: str

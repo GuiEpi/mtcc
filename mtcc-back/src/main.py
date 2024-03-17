@@ -122,7 +122,7 @@ async def get_pres(data: GetPresModel) -> PresContentResponseModel:
             audio_bit_rate=str(settings.audioBitRate),
             bit_depth=str(bits),
             nb_files=str(settings.nbFiles),
-            total_size=str(settings.totalSize),
+            total_size=f"{settings.totalSize} {settings.sizeUnit}",
             banner_theme=settings.bannerTheme,
             account_link=settings.accountLink,
             tag=settings.tag,
