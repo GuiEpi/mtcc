@@ -30,9 +30,9 @@ class PresGenerator(PresModel):
             genre = "Unknown"
 
         if self.settings.codec == "MP3":
-            self.torrent_name = f"[{genre}] {self.album.artist.name} - {self.album.title} ({self.album.record_type.upper()}) [{self.settings.codec}, {self.settings.audio_bit_rate} kb/s] {self.settings.tag}".strip()
+            self.torrent_name = f"[{genre}] {self.album.artist.name} - {self.album.title} [{self.settings.codec}, {self.settings.audio_bit_rate} kb/s] {self.settings.tag}".strip()
         elif "FLAC" in self.settings.codec:
             if len(self.settings.codec.split(" ")) > 1:
                 # come from frontend
                 self.settings.codec = self.settings.codec.split(" ")[0]
-            self.torrent_name = f"[{genre}] {self.album.artist.name} - {self.album.title} ({self.album.record_type.upper()}) [{self.settings.codec}, {self.settings.bit_depth} Bit {self.settings.frequency}] {self.settings.tag}".strip()
+            self.torrent_name = f"[{genre}] {self.album.artist.name} - {self.album.title} [{self.settings.codec}, {self.settings.bit_depth} Bit {self.settings.frequency}] {self.settings.tag}".strip()
