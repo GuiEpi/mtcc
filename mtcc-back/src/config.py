@@ -13,8 +13,8 @@ TEMPORARY_NFO = {}
 
 ALLOWED_MIME_TYPES = {
     "audio/mpeg": 100 * 1024 * 1024,  # 100 MB
-    "audio/flac": 100 * 1024 * 1024,  # 100 MB
-    "audio/wav": 100 * 1024 * 1024,  # 100 MB
+    "audio/x-flac": 100 * 1024 * 1024,  # 100 MB
+    "audio/x-wav": 100 * 1024 * 1024,  # 100 MB
     "image/jpeg": 2 * 1024 * 1024,  # 2 MB
     "image/png": 2 * 1024 * 1024,  # 2 MB
 }
