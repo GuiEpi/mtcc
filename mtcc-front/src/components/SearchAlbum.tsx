@@ -53,7 +53,7 @@ export default function SearchAlbum() {
         <div className='flex justify-center pb-20'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='flex space-x-2'>
-              <Input type="text" className="px-3 py-2 w-80" placeholder="Search for album..." {...register('name')} />
+              <Input autoFocus type="text" className="px-3 py-2 w-80" placeholder="Search for album..." {...register('name')} />
               <Button type="submit" className="px-3 py-2">Search</Button>
             </div>
           </form>
