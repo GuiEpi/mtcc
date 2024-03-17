@@ -50,7 +50,7 @@ def validate_files(
 
 
 def extract_bits(text: str) -> Optional[str]:
-    match = re.search(r"(\d+)\s*bits", text)
+    match = re.search(r"(\d+)\s*bits", text, re.IGNORECASE)
     if match:
         return match.group(1)
     else:
