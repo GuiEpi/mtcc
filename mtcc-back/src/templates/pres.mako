@@ -35,7 +35,10 @@ ${track.track_position} - ${track.title} (${datetime.fromtimestamp(track.duratio
 [b]Nombre de fichier(s) :[/b] ${settings.nb_files}
 [b]Poids Total :[/b] [color=#ff0000]${settings.total_size} [/color]
 
-
+% if settings.account_link:
 [url=${settings.account_link}][img]${settings.banner_theme}/my_torrents.png[/img][/url]
+% else:
+[img]${settings.banner_theme}/my_torrents.png[/img]
+% endif
 
 [url=${mtcc_link}][img]${settings.banner_theme}/mtcc_pres.png[/img][/url][/center]
