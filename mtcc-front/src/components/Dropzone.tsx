@@ -73,7 +73,7 @@ export const Dropzone: React.FC<Props> = ({ children, fromNfo = false, className
       onDragLeave={handleDragLeave}
     >
       {isDraggingOver && 
-        <div className="fixed inset-0 bg-black bg-opacity-95 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-95 flex justify-center items-center z-50">
           <div className="flex justify-center items-center flex-col h-72">
             <FolderUp size={128} />
             <span>Drag and drop your album/single here</span>
