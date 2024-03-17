@@ -9,7 +9,7 @@ export const acceptedFileTypes = [
   "image/jpeg",
   "image/png",
 ]
- 
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -17,8 +17,9 @@ export function cn(...inputs: ClassValue[]) {
 export const getFilesFromDrop = (items: DataTransferItemList): Promise<File[]> => {
   return new Promise((resolve, reject) => {
     const files: File[] = [];
+    const itemsLength = items.length;
 
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < itemsLength; i++) {
       const item = items[i].webkitGetAsEntry();
 
       if (item) {
@@ -33,7 +34,7 @@ export const getFilesFromDrop = (items: DataTransferItemList): Promise<File[]> =
                 return;
               }
               files.push(file);
-              if (i === items.length - 1) {
+              if (i === itemsLength - 1) {
                 resolve(files);
               }
             },
